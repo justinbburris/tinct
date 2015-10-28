@@ -3,6 +3,10 @@ Tinct
 
 Control your Phillips Hue lights via a touch screen raspberry pi
 
+More WIP than WIPcream
+
+I'm new to python devlopment, so please forgive my transgressions
+
 ## Equipment needed
 
 * raspberry pi
