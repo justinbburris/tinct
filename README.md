@@ -10,9 +10,32 @@ Control your Phillips Hue lights via a touch screen raspberry pi
 * wifi dongle
 * power adapter
 
-## Development
+## Setup
+
+### Python
 
 I use Python 2.7.10 and pyenv + pyenv-virtualenv to manage my python verion
+
+```
+$ pyenv install 2.7.10
+$ pyenv virtualenv 2.7.10 tinct
+```
+
+### Install dependencies
+
+```
+$ pip install -r requirements.txt
+```
+
+## Development
+
+### New depenencies
+
+When adding new depencies, be sure to add them to the requirements.txt file
+
+```
+$ pip freeze > requirements.txt
+```
 
 ## Roadmap
 
