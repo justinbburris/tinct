@@ -9,3 +9,14 @@ class Hue:
 
     def groups(self, group='all'):
         return self.bridge.group.get({'which': group})
+
+    def group_set_on(self, group='all', on=True):
+        resource = {
+                'which': group,
+                'data': {
+                    'action': {
+                        'on': on
+                        }
+                    }
+                }
+        return self.bridge.group.update(resource)

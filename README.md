@@ -13,6 +13,7 @@ I'm new to python devlopment, so please forgive my transgressions
 * raspberry pi touch display
 * wifi dongle
 * power adapter
+* SD Card
 
 ## Setup
 
@@ -28,11 +29,32 @@ $ pyenv local tinct
 
 ### Install dependencies
 
+#### Kivy
+
+Visit Kivy's page for information on howto install kivy
+
+[Kivy docs](http://kivy.org/docs/installation/installation.html)
+
+#### Packages
+
 ```
 $ pip install -r requirements.txt
 ```
 
+On OS X
+```
+http://kivy.org/docs/installation/installation.html
+```
+
 ## Development
+
+
+### Running the app
+
+```
+$ cd tinct
+$ kivy tinct.py
+```
 
 ### New depenencies
 
