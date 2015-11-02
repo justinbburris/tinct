@@ -1,0 +1,15 @@
+#:kivy 1.0.9
+
+<Tinct>:
+  LightGroupList:
+    size: (self.parent.size[0] / 2.5), self.parent.size[1]
+
+<LightGroupList>:
+  ListView:
+    item_strings: root.light_groups
+    canvas.before:
+      Color:
+        rgb: 1,.5,0
+      Rectangle:
+        pos: self.pos
+        size: self.size
