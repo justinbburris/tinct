@@ -24,3 +24,7 @@ class TestHue(object):
     def test_groups(self):
         groups = {'resource': [{u'name': u'Group 1', 'id': 1}]}
         assert_equal(self.hue.groups(), groups)
+
+    def test_single_group(self):
+        group = {'resource': {u'action': {u'on': True, u'hue': 33536, u'colormode': u'xy', u'effect': u'none', u'xy': [0.346, 0.3568], u'bri': 254, u'sat': 144, u'ct': 201}, u'lights': [u'1', u'2'], u'name': u'Group 1'}}
+        assert_equal(self.hue.groups(1), group)

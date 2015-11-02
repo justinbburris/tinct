@@ -7,5 +7,5 @@ class Hue:
         self.bridge_ip = bridge_ip
         self.bridge = Bridge(device={'ip': bridge_ip}, user={'name': user_id})
 
-    def groups(self):
-        return self.bridge.group.get({'which': 'all'})
+    def groups(self, group='all'):
+        return self.bridge.group.get({'which': group})
