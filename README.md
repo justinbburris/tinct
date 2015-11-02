@@ -43,7 +43,7 @@ $ pip install -r requirements.txt
 
 On OS X
 ```
-http://kivy.org/docs/installation/installation.html
+$ kivy -m pip install -r requirements.txt
 ```
 
 ## Development
