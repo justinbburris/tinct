@@ -8,7 +8,8 @@ class Hue:
         self.bridge = Bridge(device={'ip': bridge_ip}, user={'name': user_id})
 
     def groups(self, group='all'):
-        return self.bridge.group.get({'which': group})
+        groups = self.bridge.group.get({'which': group})
+        return groups['resource']
 
     def group_set_on(self, group='all', on=True):
         resource = {
@@ -20,3 +21,7 @@ class Hue:
                     }
                 }
         return self.bridge.group.update(resource)
+
+    def lights(self, light):
+        light = self.bridge.light.get({'which': light})
+        return light['resource']
