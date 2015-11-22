@@ -4,15 +4,25 @@
   id: tinct
 
   LightGroupPanel:
+    id: light_groups
     size: (self.parent.size[0] / 2.5), self.parent.size[1]
     hue_bridge: tinct.hue_bridge
+  GroupControlPanel:
+    size: (self.parent.size[0] * 0.6), self.parent.size[1]
+    pos: (self.parent.size[0] * 0.4), 0
+    hue_bridge: tinct.hue_bridge
+    selected_group: light_groups.selected_group
 
 <LightGroupPanel>:
   ListView:
     item_strings: root.light_groups
     canvas.before:
       Color:
-        rgb: 1,.5,0
+        rgb: 1, 0.5, 0
       Rectangle:
         pos: self.pos
         size: self.size
+
+<GroupControlPanel>:
+  ListView:
+    item_strings: root.lights
