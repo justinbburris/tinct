@@ -1,23 +1,28 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
+from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.stacklayout import StackLayout
 from kivy.properties import ListProperty, ObjectProperty
 
 from hue import Hue
 import settings
 
-class GroupControlPanel(BoxLayout):
+class GroupLights(StackLayout):
+
     hue_bridge = ObjectProperty(None)
     selected_group = ObjectProperty(None)
-    lights = ListProperty([])
 
     def on_selected_group(self, instance, pos):
         group_id = int(self.selected_group['id'])
         group = self.hue_bridge.groups(group_id)
         lights = [self.hue_bridge.lights(int(light_id)) for light_id in group['lights']]
-        self.lights = [light['name'] for light in lights]
+
+        for light in lights:
+            self.add_widget(Button(text=light['name'], size_hint=(0.15,0.15)))
 
 class LightGroupPanel(BoxLayout):
+
     hue_bridge = ObjectProperty(None)
     selected_group = ObjectProperty(None)
     light_groups = ListProperty([])
