@@ -1,10 +1,13 @@
 #:kivy 1.0.9
 
 <Tinct>:
-  LightGroupList:
-    size: (self.parent.size[0] / 2.5), self.parent.size[1]
+  id: tinct
 
-<LightGroupList>:
+  LightGroupPanel:
+    size: (self.parent.size[0] / 2.5), self.parent.size[1]
+    hue_bridge: tinct.hue_bridge
+
+<LightGroupPanel>:
   ListView:
     item_strings: root.light_groups
     canvas.before:
