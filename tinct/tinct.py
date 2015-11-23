@@ -1,12 +1,28 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
+from kivy.uix.image import Image
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.stacklayout import StackLayout
-from kivy.properties import ListProperty, ObjectProperty
+from kivy.properties import StringProperty, ListProperty, ObjectProperty
 
 from hue import Hue
 import settings
+
+class LightButton(Button):
+    BULB_OFF='assets/images/bulb_off.png'
+    BULB_ON='assets/images/bulb_on.png'
+
+    light = ObjectProperty(None)
+    image_src = StringProperty(BULB_OFF)
+
+    def __init__(self, **kwargs):
+        self.light=kwargs['light']
+
+        if self.light['state']['on']:
+            self.image_src = self.BULB_ON
+
+        super(LightButton, self).__init__(**kwargs)
 
 class GroupLights(StackLayout):
 
@@ -19,7 +35,7 @@ class GroupLights(StackLayout):
         lights = [self.hue_bridge.lights(int(light_id)) for light_id in group['lights']]
 
         for light in lights:
-            self.add_widget(Button(text=light['name'], size_hint=(0.15,0.15)))
+            self.add_widget(LightButton(light=light))
 
 class LightGroupPanel(BoxLayout):
 
