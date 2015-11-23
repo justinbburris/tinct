@@ -17,12 +17,28 @@ class LightButton(Button):
     image_src = StringProperty(BULB_OFF)
 
     def __init__(self, **kwargs):
-        self.light=kwargs['light']
+        self.hue_bridge = kwargs['hue_bridge']
+        self.light_id = kwargs['light_id']
+        self.light = kwargs['light']
 
-        if self.light['state']['on']:
-            self.image_src = self.BULB_ON
+        self.update_image_src()
 
         super(LightButton, self).__init__(**kwargs)
+
+    def update_image_src(self):
+        if self.light['state']['on']:
+            self.image_src = self.BULB_ON
+        else:
+            self.image_src = self.BULB_OFF
+
+    def on_press(self):
+        new_state = not self.light['state']['on']
+
+        self.hue_bridge.light_set_on(self.light_id, new_state)
+        self.light = self.hue_bridge.lights(self.light_id)
+
+    def on_light(self, instance, pos):
+        self.update_image_src()
 
 class GroupLights(StackLayout):
 
@@ -32,10 +48,12 @@ class GroupLights(StackLayout):
     def on_selected_group(self, instance, pos):
         group_id = int(self.selected_group['id'])
         group = self.hue_bridge.groups(group_id)
-        lights = [self.hue_bridge.lights(int(light_id)) for light_id in group['lights']]
-
-        for light in lights:
-            self.add_widget(LightButton(light=light))
+        for light_id in group['lights']:
+            id = int(light_id)
+            light = self.hue_bridge.lights(id)
+            self.add_widget(
+                    LightButton(light_id= id, hue_bridge=self.hue_bridge, light=light)
+                    )
 
 class LightGroupPanel(BoxLayout):
 
