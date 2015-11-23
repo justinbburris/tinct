@@ -68,3 +68,11 @@ class TestHue(object):
                 u'modelid': u'LCT001'
             }
         assert_equal(self.hue.lights(1), light)
+
+    def test_turn_on_light(self):
+        result = {'resource': [{u'success': {u'/lights/1/state/on': True}}]}
+        assert_equal(self.hue.light_set_on(1, True), result)
+
+    def test_turn_off_light(self):
+        result = {'resource': [{u'success': {u'/lights/2/state/on': False}}]}
+        assert_equal(self.hue.light_set_on(2, False), result)

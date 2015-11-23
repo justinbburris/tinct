@@ -25,3 +25,14 @@ class Hue:
     def lights(self, light):
         light = self.bridge.light.get({'which': light})
         return light['resource']
+
+    def light_set_on(self, light, on):
+        resource = {
+                'which': light,
+                'data': {
+                    'state': {
+                        'on': on
+                        }
+                    }
+                }
+        return self.bridge.light.update(resource)
