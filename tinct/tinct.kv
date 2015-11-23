@@ -1,10 +1,7 @@
 #:kivy 1.9.0
 
-<GroupLights>:
-  size: (self.parent.size[0] * 0.6), self.parent.size[1]
-
 <LightGroupPanel>:
-  size: (self.parent.size[0] / 2.5), self.parent.size[1]
+  size: (self.parent.size[0] * 0.4), self.parent.size[1]
   ListView:
     item_strings: root.light_groups
     canvas.before:
@@ -14,14 +11,24 @@
         pos: self.pos
         size: self.size
 
+<GroupPanel>:
+  size: (self.parent.size[0] * 0.6), self.parent.size[1]
+
+<GroupLights>:
+  size: (self.parent.size[0] * 0.6), self.parent.size[1]
+
 <LightButton>:
-  size_hint: (0.15,0.15)
+  size_hint: (0.15, 0.15)
   Image:
     source: self.parent.image_src
     y: self.parent.y
     x: self.parent.x
     size: self.parent.size
     allow_stretch: True
+
+<GroupOnToggleButton>:
+  text: self.on_state
+  size_hint: (0.15, 0.075)
 
 <Tinct>:
   id: tinct
@@ -35,8 +42,12 @@
   LightGroupPanel:
     id: light_groups
     hue_bridge: tinct.hue_bridge
-  GroupLights:
+  GroupPanel
     pos: (self.parent.size[0] * 0.4), 0
-    padding: 50
-    hue_bridge: tinct.hue_bridge
-    selected_group: light_groups.selected_group
+
+    GroupLights:
+      pos_hint: {'top': 0.95, 'x': 0.35}
+      hue_bridge: tinct.hue_bridge
+      selected_group: light_groups.selected_group
+    GroupOnToggleButton:
+      pos_hint: { 'center_x': 0.5, 'center_y': 0.7}

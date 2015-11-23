@@ -2,12 +2,23 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.image import Image
+from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.properties import StringProperty, ListProperty, ObjectProperty
 
 from hue import Hue
 import settings
+
+class GroupOnToggleButton(Button):
+
+    STATE_ON = 'Turn Off'
+    STATE_OFF = 'Turn On'
+
+    on_state = StringProperty(STATE_ON)
+
+    def on_press(self):
+        pass
 
 class LightButton(Button):
     BULB_OFF='assets/images/bulb_off.png'
@@ -54,6 +65,10 @@ class GroupLights(StackLayout):
             self.add_widget(
                     LightButton(light_id= id, hue_bridge=self.hue_bridge, light=light)
                     )
+
+class GroupPanel(RelativeLayout):
+
+    pass
 
 class LightGroupPanel(BoxLayout):
 
