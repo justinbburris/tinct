@@ -10,17 +10,26 @@ from kivy.properties import StringProperty, ListProperty, ObjectProperty
 from hue import Hue
 import settings
 
-class GroupOnToggleButton(Button):
+class GroupToggleButton(Button):
 
     STATE_ON = 'Turn Off'
     STATE_OFF = 'Turn On'
 
-    on_state = StringProperty(STATE_ON)
+    group_state = StringProperty(STATE_ON)
+    group = ObjectProperty(None)
+    hue_bidge = ObjectProperty(None)
+
+    def on_group(self, instance, pos):
+        self.update()
 
     def on_press(self):
+        print(self.group)
+
+    def update(self):
         pass
 
 class LightButton(Button):
+
     BULB_OFF='assets/images/bulb_off.png'
     BULB_ON='assets/images/bulb_on.png'
 
@@ -32,11 +41,11 @@ class LightButton(Button):
         self.light_id = kwargs['light_id']
         self.light = kwargs['light']
 
-        self.update_image_src()
+        self.update()
 
         super(LightButton, self).__init__(**kwargs)
 
-    def update_image_src(self):
+    def update(self):
         if self.light['state']['on']:
             self.image_src = self.BULB_ON
         else:
@@ -49,15 +58,15 @@ class LightButton(Button):
         self.light = self.hue_bridge.lights(self.light_id)
 
     def on_light(self, instance, pos):
-        self.update_image_src()
+        self.update()
 
 class GroupLights(StackLayout):
 
     hue_bridge = ObjectProperty(None)
-    selected_group = ObjectProperty(None)
+    group = ObjectProperty(None)
 
-    def on_selected_group(self, instance, pos):
-        group_id = int(self.selected_group['id'])
+    def on_group(self, instance, pos):
+        group_id = int(self.group['id'])
         group = self.hue_bridge.groups(group_id)
         for light_id in group['lights']:
             id = int(light_id)
@@ -73,14 +82,14 @@ class GroupPanel(RelativeLayout):
 class LightGroupPanel(BoxLayout):
 
     hue_bridge = ObjectProperty(None)
-    selected_group = ObjectProperty(None)
+    group = ObjectProperty(None)
     light_groups = ListProperty([])
 
     def on_hue_bridge(self, instance, pos):
         groups = self.hue_bridge.groups()
 
         self.light_groups = [group['name'] for group in groups]
-        self.selected_group = groups[0]
+        self.group = groups[0]
 
 class Tinct(Widget):
 

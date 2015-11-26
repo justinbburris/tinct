@@ -26,9 +26,8 @@
     size: self.parent.size
     allow_stretch: True
 
-<GroupOnToggleButton>:
-  text: self.on_state
-  size_hint: (0.15, 0.075)
+<GroupToggleButton>:
+  text: self.group_state
 
 <Tinct>:
   id: tinct
@@ -48,6 +47,8 @@
     GroupLights:
       pos_hint: {'top': 0.95, 'x': 0.35}
       hue_bridge: tinct.hue_bridge
-      selected_group: light_groups.selected_group
-    GroupOnToggleButton:
-      pos_hint: { 'center_x': 0.5, 'center_y': 0.7}
+      group: light_groups.group
+    GroupToggleButton:
+      pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+      size_hint: (0.15, 0.075)
+      group: light_groups.group
